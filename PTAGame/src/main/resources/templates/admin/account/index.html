@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Account</title>
+</head>
+<body>
+    <th>ABCD</th> <br>
+    <a th:href="@{/admin/account/add}">Add</a>
+    <table border="1">
+        <thead>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>Role Name</th>
+            <th>Created Time</th>
+            <th>Updated Time</th>
+            <th>Action</th>
+        </thead>
+        <tbody th:each="account : ${accounts}">
+            <td th:text="${account.id}"></td>
+            <td th:text="${account.email}"></td>
+            <td th:text="${account.password}"></td>
+            <td th:text="${account.firstName}"></td>
+            <td th:text="${account.lastName}"></td>
+            <td th:text="${account.phone}"></td>
+            <td th:text="${account.address}"></td>
+            <td th:text="${account.status}"></td>
+            <td th:text="${account.role.name}"></td>
+            <td th:text="${#dates.format(account.createdTime, 'dd/MM/yyyy - HH:mm:ss')}"></td>
+            <td th:text="${#dates.format(account.updatedTime, 'dd/MM/yyyy - HH:mm:ss')}"></td>
+            <td>
+                <a th:href="@{/admin/account/edit}">Edit</a>
+                <a th:href="@{/admin/account/delete}">Delete</a>
+            </td>
+        </tbody>
+    </table>
+</body>
+</html>

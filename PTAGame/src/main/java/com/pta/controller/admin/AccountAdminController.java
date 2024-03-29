@@ -1,5 +1,10 @@
 package com.pta.controller.admin;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -19,7 +24,7 @@ import com.pta.service.RoleService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping({ "", "/" })
+@RequestMapping({ "", "/", "admin/account", "admin/account/" })
 public class AccountAdminController {
 
 	@Autowired
@@ -32,7 +37,7 @@ public class AccountAdminController {
 
 	@GetMapping({ "index", "", "/" })
 	public String index(ModelMap modelMap) {
-		// modelMap.put("accounts", accountService.findAll());
+		modelMap.put("accounts", accountService.findAll());
 		return "admin/account/index";
 	}
 
@@ -48,7 +53,10 @@ public class AccountAdminController {
 	@PostMapping({ "add" })
 	public String add(@ModelAttribute("account") Account account, RedirectAttributes redirectAttributes) {
 		try {
-			
+
+			LocalDateTime now = LocalDateTime.now();
+			Date createdDate = Date.from(now.toInstant(ZoneOffset.UTC));
+			account.setCreatedTime(createdDate);
 			account.setPassword(encoder.encode(account.getPassword()));
 
 			if (accountService.save(account)) {
@@ -87,7 +95,7 @@ public class AccountAdminController {
 	@PostMapping({ "edit" })
 	public String edit(@ModelAttribute("account") Account account, RedirectAttributes redirectAttributes) {
 		try {
-			
+
 			if (accountService.save(account)) {
 				redirectAttributes.addFlashAttribute("msg", "Edit Success");
 			} else {
@@ -103,7 +111,6 @@ public class AccountAdminController {
 	}
 
 	// ----------- LOGIN
-	
 
 	// ------------------ Change PassWord
 	// Update Password
@@ -131,7 +138,7 @@ public class AccountAdminController {
 		}
 
 		String hashedCurrentPassword = accountService.findPassword(account.getId());
-		
+
 		if (!encoder.matches(currentPassword, hashedCurrentPassword)) {
 			redirectAttributes.addFlashAttribute("msg", "Current password is incorrect");
 			return "redirect:/admin/account/updatePassword/" + account.getId();

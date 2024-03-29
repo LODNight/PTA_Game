@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Account</title>
+</head>
+
+<body>
+    <form th:action="@{/admin/account/add}" method="post">
+        <table>
+            <tr>
+                <td>Email</td>
+                <td><input type="text" th:field="*{account.email}"></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" th:field="*{account.password}"></td>
+            </tr>
+            <tr>
+                <td>First Name</td>
+                <td><input type="text" th:field="*{account.firstName}"></td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td><input type="text" th:field="*{account.lastName}"></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><input type="text" th:field="*{account.phone}"></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><input type="text" th:field="*{account.address}"></td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td><input type="text" th:field="*{account.status}"></td>
+            </tr>
+            <tr>
+                <td>Role</td>
+                <td>
+                    <select th:field="${account.role.id}" class="form-control select2">
+                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</body>
+
+</html>
