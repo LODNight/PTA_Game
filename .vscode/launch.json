@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-PtaGameApplication<PTAGame>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.pta.PtaGameApplication",
+            "projectName": "PTAGame",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
