@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    <form th:action="@{/admin/auth/register}" method="post">
+        <span th:text="${msg}"></span>
+        <body>
+            <table>
+                <tr>
+                    <th>Email</th>
+                    <td><input type="text" th:field="*{account.email}"></td>
+                </tr>
+                <tr>
+                    <th>Pasword</th>
+                    <td><input type="password" name="newPassword"></td>
+                </tr>
+                <tr>
+                    <th>Confirm Pasword</th>
+                    <td><input type="password" name="confirmPassword"></td>
+                </tr>
+                <tr>
+                    <td>First Name</td>
+                    <td><input type="text" th:field="*{account.firstName}"></td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td><input type="text" th:field="*{account.lastName}"></td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td><input type="text" th:field="*{account.phone}"></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><input type="text" th:field="*{account.address}"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">Login</button></td>
+                    <td><a th:href="@{/admin/auth/register}"></a></td>
+                </tr>   
+            </table>
+        </body>
+    </form>
+</body>
+</html>

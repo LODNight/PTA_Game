@@ -43,7 +43,7 @@ public class SecurityConfiguration {
 					.anyRequest()
 					.authenticated();
 		}).formLogin(formLogin -> {
-			formLogin.loginPage("/login").loginProcessingUrl("/log/process-login")
+			formLogin.loginPage("/admin/auth/login").loginProcessingUrl("/admin/auth/process-login")
 					.usernameParameter("email").passwordParameter("password")
 //										.defaultSuccessUrl("/")
 					.successHandler(new AuthenticationSuccessHandler() {
@@ -51,46 +51,46 @@ public class SecurityConfiguration {
 						public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 								Authentication authentication) throws IOException, ServletException {
 
-							//  redirectBasedOnRoles(response, authentication); // Tra ve duong dan theo role
+							 redirectBasedOnRoles(response, authentication); // Tra ve duong dan theo role
 						}
-					}).failureUrl("/log/login?error");
+					}).failureUrl("/admin/auth/login?error");
 		}).logout(logout -> {
-			logout.logoutUrl("/logout").logoutSuccessUrl("/login?logout");
+			logout.logoutUrl("/admin/auth/logout").logoutSuccessUrl("/admin/auth/login?logout");
 		}).exceptionHandling(ex -> {
 			ex.accessDeniedPage("/accessDenied");
 		}).build();
 
 	}
 	
-	// private void redirectBasedOnRoles(HttpServletResponse response, Authentication authentication) throws IOException {
-	// 	UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	// 	String userEmail = userDetails.getUsername();
+	private void redirectBasedOnRoles(HttpServletResponse response, Authentication authentication) throws IOException {
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		String userEmail = userDetails.getUsername();
 
-	// 	Account account = accountService.findByEmail(userEmail);
+		Account account = accountService.findByEmail(userEmail);
 
-	// 	if (account != null && account.isStatus()) {
-	// 		Collection<GrantedAuthority> roles = (Collection<GrantedAuthority>) authentication
-	// 				.getAuthorities();
+		if (account != null && account.getStatus().equals(1)) {
+			Collection<GrantedAuthority> roles = (Collection<GrantedAuthority>) authentication
+					.getAuthorities();
 
-	// 		Map<String, String> urls = new HashMap<String, String>();
-	// 		urls.put("ROLE_SUPER_ADMIN", "/admin/dashboard");
-	// 		urls.put("ROLE_ADMIN", "/admin/dashboard");
-	// 		urls.put("ROLE_MEMBER", "/");
+			Map<String, String> urls = new HashMap<String, String>();
+			urls.put("ROLE_SUPER_ADMIN", "/admin/account/index");
+			urls.put("ROLE_ADMIN", "/admin/account/index");
+			urls.put("ROLE_MEMBER", "/");
 
-	// 		String url = "";
-	// 		for (GrantedAuthority role : roles) {
-	// 			if (urls.containsKey(role.getAuthority())) {
-	// 				url = urls.get(role.getAuthority());
-	// 				break;
-	// 			}
-	// 		}
-	// 		response.sendRedirect(url);
+			String url = "";
+			for (GrantedAuthority role : roles) {
+				if (urls.containsKey(role.getAuthority())) {
+					url = urls.get(role.getAuthority());
+					break;
+				}
+			}
+			response.sendRedirect(url);
 
-	// 	} else {
-	// 		// Account not found or inactive, redirect to login with error message
-	// 		response.sendRedirect("/log/login?error=inactive");
-	// 	}
-	// }
+		} else {
+			// Account not found or inactive, redirect to login with error message
+			response.sendRedirect("/admin/auth/login?error=inactive");
+		}
+	}
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder builder) throws Exception {
 		builder.userDetailsService(accountService);

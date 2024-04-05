@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <form th:action="@{process-login}" method="post">
+        <span th:text="${msg}"></span>
+        <body>
+            <table>
+                <tr>
+                    <th>Email</th>
+                    <td><input type="text" name="email"></td>
+                </tr>
+                <tr>
+                    <th>Pasword</th>
+                    <td><input type="password" name="password"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">Login</button></td>
+                    <td><a th:href="@{/admin/auth/register}">Register</a></td>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </tr>   
+            </table>
+        </body>
+    </form>
+</body>
+</html>

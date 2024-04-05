@@ -6,8 +6,15 @@
     <title>List Account</title>
 </head>
 <body>
-    <th>ABCD</th> <br>
-    <a th:href="@{/admin/account/add}">Add</a>
+    <h1>Admin Account</h1> 
+    <h3>
+        Welcome <i th:text="${email}"></i>
+    </h3>
+    
+
+    <a th:href="@{/admin/account/add}">Add</a> | 
+    <a th:href="@{/admin/auth/login}">Login</a> | 
+    <a th:href="@{/admin/auth/logout}">Logout</a>
     <table border="1">
         <thead>
             <th>Id</th>
@@ -33,11 +40,11 @@
             <td th:text="${account.address}"></td>
             <td th:text="${account.status}"></td>
             <td th:text="${account.role.name}"></td>
-            <td th:text="${#dates.format(account.createdTime, 'dd/MM/yyyy - HH:mm:ss')}"></td>
-            <td th:text="${#dates.format(account.updatedTime, 'dd/MM/yyyy - HH:mm:ss')}"></td>
+            <td th:text="${#dates.format(account.createdTime, 'dd/MM/yyyy - HH:mm')}"></td>
+            <td th:text="${#dates.format(account.updatedTime, 'dd/MM/yyyy - HH:mm')}"></td>
             <td>
-                <a th:href="@{/admin/account/edit}">Edit</a>
-                <a th:href="@{/admin/account/delete}">Delete</a>
+                <a th:href="@{'/admin/account/edit/'+ ${account.id}} ">Edit</a>
+                <a th:href="@{'/admin/account/delete/' + ${account.id}}">Delete</a>
             </td>
         </tbody>
     </table>

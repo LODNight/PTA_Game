@@ -22,7 +22,8 @@ public class Account implements java.io.Serializable {
 	private String lastName;
 	private String phone;
 	private String address;
-	private boolean status;
+	private int status;
+	private String securityCode;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date createdTime;
@@ -32,7 +33,7 @@ public class Account implements java.io.Serializable {
 	public Account() {
 	}
 
-	public Account(Role role, String email, String password, boolean status, Date createdTime) {
+	public Account(Role role, String email, String password, int status, Date createdTime) {
 		this.role = role;
 		this.email = email;
 		this.password = password;
@@ -41,7 +42,7 @@ public class Account implements java.io.Serializable {
 	}
 
 	public Account(Role role, String email, String password, String firstName, String lastName, String phone,
-			String address, boolean status, Date createdTime, Date updatedTime) {
+			String address, int status, String securityCode, Date createdTime, Date updatedTime) {
 		this.role = role;
 		this.email = email;
 		this.password = password;
@@ -50,6 +51,7 @@ public class Account implements java.io.Serializable {
 		this.phone = phone;
 		this.address = address;
 		this.status = status;
+		this.securityCode = securityCode;
 		this.createdTime = createdTime;
 		this.updatedTime = updatedTime;
 	}
@@ -71,7 +73,7 @@ public class Account implements java.io.Serializable {
 	public Role getRole() {
 		return this.role;
 	}
-
+	
 	public void setRole(Role role) {
 		this.role = role;
 	}
@@ -130,13 +132,22 @@ public class Account implements java.io.Serializable {
 		this.address = address;
 	}
 
-	@Column(name = "status", nullable = false)
-	public boolean isStatus() {
+	@Column(name = "status", nullable = false, length = 11)
+	public Integer getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	@Column(name = "security_code", length = 250)
+	public String getSecurityCode() {
+		return this.securityCode;
+	}
+
+	public void setSecurityCode(String securityCode) {
+		this.securityCode = securityCode;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

@@ -7,6 +7,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,9 @@ public class AccountAdminController {
 	private BCryptPasswordEncoder encoder;
 
 	@GetMapping({ "index", "", "/" })
-	public String index(ModelMap modelMap) {
+	public String index(ModelMap modelMap, Authentication authentication ) {
+		String email = authentication.getName();
+		modelMap.put("email", email);
 		modelMap.put("accounts", accountService.findAll());
 		return "admin/account/index";
 	}
@@ -96,6 +99,10 @@ public class AccountAdminController {
 	public String edit(@ModelAttribute("account") Account account, RedirectAttributes redirectAttributes) {
 		try {
 
+			LocalDateTime now = LocalDateTime.now();
+			Date updatedDate = Date.from(now.toInstant(ZoneOffset.UTC));
+			account.setUpdatedTime(updatedDate);
+			
 			if (accountService.save(account)) {
 				redirectAttributes.addFlashAttribute("msg", "Edit Success");
 			} else {
