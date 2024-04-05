@@ -37,9 +37,13 @@ public class AccountAdminController {
 	private BCryptPasswordEncoder encoder;
 
 	@GetMapping({ "index", "", "/" })
-	public String index(ModelMap modelMap, Authentication authentication ) {
-		String email = authentication.getName();
-		modelMap.put("email", email);
+	public String index(ModelMap modelMap, Authentication authentication) {
+
+		if (authentication != null && authentication.isAuthenticated()) {
+			String email = authentication.getName();
+			modelMap.put("email", email);
+		}
+
 		modelMap.put("accounts", accountService.findAll());
 		return "admin/account/index";
 	}
@@ -102,7 +106,7 @@ public class AccountAdminController {
 			LocalDateTime now = LocalDateTime.now();
 			Date updatedDate = Date.from(now.toInstant(ZoneOffset.UTC));
 			account.setUpdatedTime(updatedDate);
-			
+
 			if (accountService.save(account)) {
 				redirectAttributes.addFlashAttribute("msg", "Edit Success");
 			} else {
