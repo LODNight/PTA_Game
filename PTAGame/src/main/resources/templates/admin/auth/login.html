@@ -20,9 +20,12 @@
                 </tr>
                 <tr>
                     <td colspan="2"><button type="submit">Login</button></td>
-                    <td><a th:href="@{/admin/auth/register}">Register</a></td>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </tr>   
+                <tr>
+                    <td><a th:href="@{/admin/auth/register}">Register</a></td>
+                    <td><a th:href="@{/admin/auth/forgetPass}">Forget Pass</a></td>
+                </tr>
             </table>
         </body>
     </form>

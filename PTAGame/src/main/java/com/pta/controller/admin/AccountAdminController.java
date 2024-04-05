@@ -133,7 +133,7 @@ public class AccountAdminController {
 			redirectAttributes.addFlashAttribute("msg", "Email not found");
 		} else {
 			modelMap.put("account", account);
-			return "admin/account/updatePassword";
+			return "admin/account/updatePass";
 		}
 		return "redirect:/admin/account/login";
 	}
@@ -159,6 +159,11 @@ public class AccountAdminController {
 			redirectAttributes.addFlashAttribute("msg", "Confirm password does not match new password");
 			return "redirect:/admin/account/updatePassword/" + account.getId();
 		}
+
+		LocalDateTime now = LocalDateTime.now();
+			Date updatedDate = Date.from(now.toInstant(ZoneOffset.UTC));
+			account.setUpdatedTime(updatedDate);
+			
 		account.setPassword(encoder.encode(newPassword));
 		redirectAttributes.addFlashAttribute("msg",
 				accountService.save(account) ? "Password changed successfully" : "Failed to change password");
