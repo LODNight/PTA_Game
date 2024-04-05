@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.*;
 
 
@@ -23,8 +25,12 @@ public class Product implements java.io.Serializable {
 	private String image;
 	private String price;
 	private boolean status;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date createdTime;
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date updatedTime;
+	
 	private Set<GameGenres> gameGenreses = new HashSet<GameGenres>(0);
 	private Set<OperatingSystem> operatingSystems = new HashSet<OperatingSystem>(0);
 

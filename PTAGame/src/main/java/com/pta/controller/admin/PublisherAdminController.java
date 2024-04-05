@@ -18,39 +18,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.pta.entities.Account;
-import com.pta.entities.Genres;
-import com.pta.service.GenresService;
-import com.pta.service.RoleService;
+import com.pta.entities.Publisher;
+import com.pta.service.PublisherService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping({"admin/genres", "admin/genres/" })
-public class GenresAdminController {
+@RequestMapping({"admin/publisher", "admin/publisher/" })
+public class PublisherAdminController {
 
 	@Autowired
-	private GenresService genresService;
+	private PublisherService publisherService;
 
 	@GetMapping({ "index", "", "/" })
 	public String index(ModelMap modelMap) {
 
-		modelMap.put("genres", genresService.findAll());
-		return "admin/genres/index";
+		modelMap.put("publisher", publisherService.findAll());
+		return "admin/publisher/index";
 	}
 
 	// -------- ADD // for Admin
 	@GetMapping({ "add" })
 	public String add(ModelMap modelMap) {
-		Genres genres = new Genres();
-		modelMap.put("genres", genres);
-		return "admin/genres/add";
+		Publisher publisher = new Publisher();
+		modelMap.put("publisher", publisher);
+		return "admin/publisher/add";
 	}
 
 	@PostMapping({ "add" })
-	public String add(@ModelAttribute("genres") Genres genres, RedirectAttributes redirectAttributes) {
+	public String add(@ModelAttribute("publisher") Publisher publisher, RedirectAttributes redirectAttributes) {
 		try {
-			if (genresService.save(genres)) {
+			if (publisherService.save(publisher)) {
 				redirectAttributes.addFlashAttribute("msg", "Add Success");
 			} else {
 				redirectAttributes.addFlashAttribute("msg", "Add Failed");
@@ -61,32 +59,32 @@ public class GenresAdminController {
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("msg", e.getMessage());
 		}
-		return "redirect:/admin/genres/index";
+		return "redirect:/admin/publisher/index";
 	}
 
 	// DELETE
 	@GetMapping({ "delete/{id}" })
 	public String delete(RedirectAttributes redirectAtributes, @PathVariable("id") int id, HttpSession session) {
-		if (genresService.delete(id)) {
+		if (publisherService.delete(id)) {
 			redirectAtributes.addFlashAttribute("msg", "Delete Sucess");
 		} else {
 			redirectAtributes.addFlashAttribute("msg", "Delete Failed");
 		}
-		return "redirect:/admin/genres/index";
+		return "redirect:/admin/publisher/index";
 	}
 
 	// EDIT Information
 	@GetMapping({ "edit/{id}" })
 	public String edit(@PathVariable("id") int id, ModelMap modelMap) {
-		modelMap.put("account", genresService.find(id));
-		return "admin/genres/edit";
+		modelMap.put("account", publisherService.find(id));
+		return "admin/publisher/edit";
 	}
 
 	@PostMapping({ "edit" })
-	public String edit(@ModelAttribute("genres") Genres genres, RedirectAttributes redirectAttributes) {
+	public String edit(@ModelAttribute("publisher") Publisher publisher, RedirectAttributes redirectAttributes) {
 		try {
 
-			if (genresService.save(genres)) {
+			if (publisherService.save(publisher)) {
 				redirectAttributes.addFlashAttribute("msg", "Edit Success");
 			} else {
 				redirectAttributes.addFlashAttribute("msg", "Edit Failed");
@@ -97,7 +95,7 @@ public class GenresAdminController {
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("msg", e.getMessage());
 		}
-		return "redirect:/admin/genres/index";
+		return "redirect:/admin/publisher/index";
 	}
 
 }

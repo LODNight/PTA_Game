@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.*;
 
 
@@ -18,8 +20,12 @@ public class Developer implements java.io.Serializable {
 	private Integer id;
 	private String name;
 	private boolean status;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date createdTime;
-	private Date udpatedTime;
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	private Date updatedTime;
+	
 	private Set<Product> products = new HashSet<Product>(0);
 
 	public Developer() {
@@ -31,11 +37,11 @@ public class Developer implements java.io.Serializable {
 		this.createdTime = createdTime;
 	}
 
-	public Developer(String name, boolean status, Date createdTime, Date udpatedTime, Set<Product> products) {
+	public Developer(String name, boolean status, Date createdTime, Date updatedTime, Set<Product> products) {
 		this.name = name;
 		this.status = status;
 		this.createdTime = createdTime;
-		this.udpatedTime = udpatedTime;
+		this.updatedTime = updatedTime;
 		this.products = products;
 	}
 
@@ -80,13 +86,13 @@ public class Developer implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "udpated_time", length = 19)
-	public Date getUdpatedTime() {
-		return this.udpatedTime;
+	@Column(name = "updated_time", length = 19)
+	public Date getUpdatedTime() {
+		return this.updatedTime;
 	}
 
-	public void setUdpatedTime(Date udpatedTime) {
-		this.udpatedTime = udpatedTime;
+	public void setUpdatedTime(Date updatedTime) {
+		this.updatedTime = updatedTime;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "developer")

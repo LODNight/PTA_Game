@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.*;
 
 /**
@@ -17,8 +19,12 @@ public class Publisher implements java.io.Serializable {
 	private Integer id;
 	private String name;
 	private boolean status;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date createdTime;
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date udpatedTime;
+	
 	private Set<Product> products = new HashSet<Product>(0);
 
 	public Publisher() {

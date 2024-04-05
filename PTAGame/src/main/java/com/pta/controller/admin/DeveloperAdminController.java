@@ -18,39 +18,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.pta.entities.Account;
-import com.pta.entities.Genres;
-import com.pta.service.GenresService;
-import com.pta.service.RoleService;
+import com.pta.entities.Developer;
+import com.pta.service.DeveloperService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping({"admin/genres", "admin/genres/" })
-public class GenresAdminController {
+@RequestMapping({"admin/developer", "admin/developer/" })
+public class DeveloperAdminController {
 
 	@Autowired
-	private GenresService genresService;
+	private DeveloperService developerService;
 
 	@GetMapping({ "index", "", "/" })
 	public String index(ModelMap modelMap) {
 
-		modelMap.put("genres", genresService.findAll());
-		return "admin/genres/index";
+		modelMap.put("developers", developerService.findAll());
+		return "admin/developer/index";
 	}
 
 	// -------- ADD // for Admin
 	@GetMapping({ "add" })
 	public String add(ModelMap modelMap) {
-		Genres genres = new Genres();
-		modelMap.put("genres", genres);
-		return "admin/genres/add";
+		Developer developer = new Developer();
+		modelMap.put("developer", developer);
+		return "admin/developer/add";
 	}
 
 	@PostMapping({ "add" })
-	public String add(@ModelAttribute("genres") Genres genres, RedirectAttributes redirectAttributes) {
+	public String add(@ModelAttribute("developer") Developer developer, RedirectAttributes redirectAttributes) {
 		try {
-			if (genresService.save(genres)) {
+			
+			LocalDateTime now = LocalDateTime.now();
+			Date createdDate = Date.from(now.toInstant(ZoneOffset.UTC));
+			developer.setCreatedTime(createdDate);
+			
+			if (developerService.save(developer)) {
 				redirectAttributes.addFlashAttribute("msg", "Add Success");
 			} else {
 				redirectAttributes.addFlashAttribute("msg", "Add Failed");
@@ -61,32 +64,35 @@ public class GenresAdminController {
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("msg", e.getMessage());
 		}
-		return "redirect:/admin/genres/index";
+		return "redirect:/admin/developer/index";
 	}
 
 	// DELETE
 	@GetMapping({ "delete/{id}" })
 	public String delete(RedirectAttributes redirectAtributes, @PathVariable("id") int id, HttpSession session) {
-		if (genresService.delete(id)) {
+		if (developerService.delete(id)) {
 			redirectAtributes.addFlashAttribute("msg", "Delete Sucess");
 		} else {
 			redirectAtributes.addFlashAttribute("msg", "Delete Failed");
 		}
-		return "redirect:/admin/genres/index";
+		return "redirect:/admin/developer/index";
 	}
 
 	// EDIT Information
 	@GetMapping({ "edit/{id}" })
 	public String edit(@PathVariable("id") int id, ModelMap modelMap) {
-		modelMap.put("account", genresService.find(id));
-		return "admin/genres/edit";
+		modelMap.put("developer", developerService.find(id));
+		return "admin/developer/edit";
 	}
 
 	@PostMapping({ "edit" })
-	public String edit(@ModelAttribute("genres") Genres genres, RedirectAttributes redirectAttributes) {
+	public String edit(@ModelAttribute("developer") Developer developer, RedirectAttributes redirectAttributes) {
 		try {
-
-			if (genresService.save(genres)) {
+			LocalDateTime now = LocalDateTime.now();
+			Date updatedTime = Date.from(now.toInstant(ZoneOffset.UTC));
+			developer.setUpdatedTime(updatedTime);
+			
+			if (developerService.save(developer)) {
 				redirectAttributes.addFlashAttribute("msg", "Edit Success");
 			} else {
 				redirectAttributes.addFlashAttribute("msg", "Edit Failed");
@@ -97,7 +103,7 @@ public class GenresAdminController {
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("msg", e.getMessage());
 		}
-		return "redirect:/admin/genres/index";
+		return "redirect:/admin/developer/index";
 	}
 
 }

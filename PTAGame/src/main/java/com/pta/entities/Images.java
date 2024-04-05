@@ -3,6 +3,8 @@ package com.pta.entities;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.*;
 
 /**
@@ -16,7 +18,10 @@ public class Images implements java.io.Serializable {
 	private String name;
 	private String lenght;
 	private String type;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date createdTime;
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date udpatedTime;
 
 	public Images() {

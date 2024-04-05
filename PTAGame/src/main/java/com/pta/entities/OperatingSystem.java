@@ -3,6 +3,8 @@ package com.pta.entities;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.*;
 
 /**
@@ -21,7 +23,10 @@ public class OperatingSystem implements java.io.Serializable {
 	private String directX;
 	private String storage;
 	private String soundCard;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date createdTime;
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date updatedTime;
 
 	public OperatingSystem() {

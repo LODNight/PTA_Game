@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Developer</title>
+</head>
+
+<body>
+    <form th:action="@{/admin/developer/add}" method="post">
+        <table>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" th:field="*{developer.name}"></td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td><input type="text" th:field="*{developer.status}"></td>
+            </tr>
+           
+            <tr>
+                <td colspan="2" align="center">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</body>
+
+</html>

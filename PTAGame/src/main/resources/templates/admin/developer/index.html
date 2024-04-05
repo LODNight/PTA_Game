@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Developer</title>
+</head>
+<body>
+    <h1>Admin Developer</h1> 
+    
+    <a th:href="@{/admin/developer/add}">Add</a> | 
+    <table border="1">
+        <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Created Time</th>
+            <th>Updated Time</th>
+            <th>Action</th>
+        </thead>
+        <tbody th:each="developer : ${developers}">
+            <td th:text="${developer.id}"></td>
+            <td th:text="${developer.name}"></td>
+            <td th:text="${developer.status}"></td>
+            <td th:text="${#dates.format(developer.createdTime, 'dd/MM/yyyy - HH:mm')}"></td>
+            <td th:text="${#dates.format(developer.updatedTime, 'dd/MM/yyyy - HH:mm')}"></td>
+            <td>
+                <a th:href="@{'/admin/developer/edit/'+ ${developer.id}} ">Edit</a>
+                <a th:href="@{'/admin/developer/delete/' + ${developer.id}}">Delete</a>
+            </td>
+        </tbody>
+    </table>
+</body>
+</html>
