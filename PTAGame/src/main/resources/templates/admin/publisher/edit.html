@@ -12,16 +12,20 @@
     <form th:action="@{/admin/genres/edit}" method="post">
         <table>
             
-            <tr>
+           <tr>
                 <td>Name</td>
-                <td><input type="text" th:field="*{genres.name}"></td>
+                <td><input type="text" th:field="*{publisher.name}"></td>
             </tr>
-            
+            <tr>
+                <td>Status</td>
+                <td><input type="text" th:field="*{publisher.status}"></td>
+            </tr>
             
             <tr>
                 <td colspan="2" align="center">
                     <button type="submit" class="btn btn-primary">Edit</button>
-                    <input type="hidden" th:field="*{genres.id}">
+                    <input type="hidden" th:field="*{publisher.id}">
+                    <input type="hidden" th:field="*{publisher.createdTime}">
                     
                 </td>
             </tr>

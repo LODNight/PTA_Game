@@ -23,7 +23,7 @@ public class Publisher implements java.io.Serializable {
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date createdTime;
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-	private Date udpatedTime;
+	private Date uppdatedTime;
 	
 	private Set<Product> products = new HashSet<Product>(0);
 
@@ -36,11 +36,11 @@ public class Publisher implements java.io.Serializable {
 		this.createdTime = createdTime;
 	}
 
-	public Publisher(String name, boolean status, Date createdTime, Date udpatedTime, Set<Product> products) {
+	public Publisher(String name, boolean status, Date createdTime, Date uppdatedTime, Set<Product> products) {
 		this.name = name;
 		this.status = status;
 		this.createdTime = createdTime;
-		this.udpatedTime = udpatedTime;
+		this.uppdatedTime = uppdatedTime;
 		this.products = products;
 	}
 
@@ -85,13 +85,13 @@ public class Publisher implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "udpated_time", length = 19)
-	public Date getUdpatedTime() {
-		return this.udpatedTime;
+	@Column(name = "updated_time", length = 19)
+	public Date getUpdatedTime() {
+		return this.uppdatedTime;
 	}
 
-	public void setUdpatedTime(Date udpatedTime) {
-		this.udpatedTime = udpatedTime;
+	public void setUpdatedTime(Date uppdatedTime) {
+		this.uppdatedTime = uppdatedTime;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "publisher")

@@ -32,8 +32,7 @@ public class PublisherAdminController {
 
 	@GetMapping({ "index", "", "/" })
 	public String index(ModelMap modelMap) {
-
-		modelMap.put("publisher", publisherService.findAll());
+		modelMap.put("publishers", publisherService.findAll());
 		return "admin/publisher/index";
 	}
 
@@ -48,6 +47,10 @@ public class PublisherAdminController {
 	@PostMapping({ "add" })
 	public String add(@ModelAttribute("publisher") Publisher publisher, RedirectAttributes redirectAttributes) {
 		try {
+			LocalDateTime now = LocalDateTime.now();
+			Date createdDate = Date.from(now.toInstant(ZoneOffset.UTC));
+			publisher.setCreatedTime(createdDate);
+			
 			if (publisherService.save(publisher)) {
 				redirectAttributes.addFlashAttribute("msg", "Add Success");
 			} else {
@@ -83,7 +86,10 @@ public class PublisherAdminController {
 	@PostMapping({ "edit" })
 	public String edit(@ModelAttribute("publisher") Publisher publisher, RedirectAttributes redirectAttributes) {
 		try {
-
+			LocalDateTime now = LocalDateTime.now();
+			Date updatedTime = Date.from(now.toInstant(ZoneOffset.UTC));
+			publisher.setUpdatedTime(updatedTime);
+			
 			if (publisherService.save(publisher)) {
 				redirectAttributes.addFlashAttribute("msg", "Edit Success");
 			} else {

@@ -8,19 +8,25 @@
 <body>
     <h1>Admin Genres</h1> 
     
-    
+    <a th:href="@{/admin/publisher/add} ">Add</a>
     <table border="1">
         <thead>
             <th>Id</th>
             <th>Name</th>
+            <th>Status</th>
+            <th>Created Time</th>
+            <th>Updated Time</th>
             <th>Action</th>
         </thead>
-        <tbody th:each="genries : ${genres}">
-            <td th:text="${genries.id}"></td>
-            <td th:text="${genries.name}"></td>
+        <tbody th:each="publisher : ${publishers}">
+            <td th:text="${publisher.id}"></td>
+            <td th:text="${publisher.name}"></td>
+            <td th:text="${publisher.status}"></td>
+            <td th:text="${#dates.format(publisher.createdTime, 'dd/MM/yyyy - HH:mm')}"></td>
+            <td th:text="${#dates.format(publisher.updatedTime, 'dd/MM/yyyy - HH:mm')}"></td>
             <td>
-                <a th:href="@{'/admin/genres/edit/'+ ${genries.id}} ">Edit</a>
-                <a th:href="@{'/admin/genres/delete/' + ${genries.id}}">Delete</a>
+                <a th:href="@{'/admin/publisher/edit/'+ ${publisher.id}} ">Edit</a>
+                <a th:href="@{'/admin/publisher/delete/' + ${publisher.id}}">Delete</a>
             </td>
         </tbody>
     </table>
