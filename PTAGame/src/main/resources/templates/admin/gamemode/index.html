@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List GamMode</title>
+</head>
+<body>
+    <h1>Admin GamMode</h1> 
+    
+    <a th:href="@{/admin/gamemode/add} ">Add</a>
+    <table border="1">
+        <thead>
+            <th>Id</th>
+            <th>Name</th>          
+            <th>Icon</th>
+            <th>Action</th>
+        </thead>
+        <tbody th:each="gamemode : ${gamemodes}">
+            <td th:text="${gamemode.id}"></td>
+            <td th:text="${gamemode.name}"></td>
+            <td th:text="${gamemode.imageIcon}"></td>
+            <td>
+                <a th:href="@{'/admin/gamemode/edit/'+ ${gamemode.id}} ">Edit</a>
+                <a th:href="@{'/admin/gamemode/delete/' + ${gamemode.id}}">Delete</a>
+            </td>
+        </tbody>
+    </table>
+</body>
+</html>

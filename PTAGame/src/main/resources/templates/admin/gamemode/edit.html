@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Genres </title>
+</head>
+
+<body>
+    <h3> Edit </h3>
+    <form th:action="@{/admin/gamemode/edit}" method="post">
+        <table>
+            
+            <tr>
+                <td>Name</td>
+                <td><input type="text" th:field="*{gamemode.name}"></td>
+            </tr>
+             <tr>
+                <td>Icon</td>
+                <td><input type="text" th:field="*{gamemode.imageIcon}"></td>
+            </tr>
+            
+            
+            <tr>
+                <td colspan="2" align="center">
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <input type="hidden" th:field="*{gamemode.id}">
+                    
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</body>
+
+</html>

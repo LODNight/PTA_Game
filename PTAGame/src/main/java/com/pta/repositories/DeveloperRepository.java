@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.pta.entities.Developer;
-import com.pta.entities.Genres;
 
 public interface DeveloperRepository extends CrudRepository<Developer, Integer>{
     

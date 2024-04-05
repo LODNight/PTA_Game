@@ -47,7 +47,7 @@ public class GameMode implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "imageIcon", length = 250)
+	@Column(name = "image_icon", length = 250)
 	public String getImageIcon() {
 		return this.imageIcon;
 	}
