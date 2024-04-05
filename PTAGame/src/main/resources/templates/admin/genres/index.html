@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Genres</title>
+</head>
+<body>
+    <h1>Admin Genres</h1> 
+    
+    
+    <table border="1">
+        <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Action</th>
+        </thead>
+        <tbody th:each="genries : ${genres}">
+            <td th:text="${genries.id}"></td>
+            <td th:text="${genries.name}"></td>
+            <td>
+                <a th:href="@{'/admin/genres/edit/'+ ${genries.id}} ">Edit</a>
+                <a th:href="@{'/admin/genres/delete/' + ${genries.id}}">Delete</a>
+            </td>
+        </tbody>
+    </table>
+</body>
+</html>
