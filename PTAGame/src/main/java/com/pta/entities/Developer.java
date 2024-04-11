@@ -19,7 +19,7 @@ public class Developer implements java.io.Serializable {
 
 	private Integer id;
 	private String name;
-	private boolean status;
+	private int status;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date createdTime;
@@ -31,13 +31,13 @@ public class Developer implements java.io.Serializable {
 	public Developer() {
 	}
 
-	public Developer(String name, boolean status, Date createdTime) {
+	public Developer(String name, int status, Date createdTime) {
 		this.name = name;
 		this.status = status;
 		this.createdTime = createdTime;
 	}
 
-	public Developer(String name, boolean status, Date createdTime, Date updatedTime, Set<Product> products) {
+	public Developer(String name, int status, Date createdTime, Date updatedTime, Set<Product> products) {
 		this.name = name;
 		this.status = status;
 		this.createdTime = createdTime;
@@ -66,12 +66,12 @@ public class Developer implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "status", nullable = false)
-	public boolean isStatus() {
+	@Column(name = "status", nullable = false, length = 11)
+	public Integer getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

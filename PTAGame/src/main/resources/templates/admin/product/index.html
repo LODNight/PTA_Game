@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>List product</title>
+</head>
+<body>
+	<h1>Admin product</h1>
+
+	<a th:href="@{/admin/product/add} ">Add</a>
+	<table border="1">
+		<thead>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Image</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Status</th>
+			<th>Developer</th>
+			<th>Publisher</th>
+			<th>Created</th>
+			<th>Updated</th>
+			<th>Action</th>
+		</thead>
+		<tbody th:each="product : ${products}">
+			<td th:text="${product.id}"></td>
+			<td th:text="${product.name}"></td>
+			<td><img
+				th:src="@{product.image ? '/images/product/' + ${product.image} : '/images/product/noimage.png'}"
+				width="120" height="100"></td>
+			<td th:text="${product.description}"></td>
+			<td th:text="${product.price}"></td>
+			<td th:text="${product.status}"></td>
+			<td th:text="${product.developer.name}"></td>
+			<td th:text="${product.publisher.name}"></td>
+			<td
+				th:text="${#dates.format(product.createdTime, 'dd/MM/yyyy - HH:mm')}"></td>
+			<td
+				th:text="${#dates.format(product.updatedTime, 'dd/MM/yyyy - HH:mm')}"></td>
+			<td><a th:href="@{'/admin/product/edit/'+ ${product.id}} ">Edit</a>
+				<a th:href="@{'/admin/product/delete/' + ${product.id}}">Delete</a>
+			</td>
+		</tbody>
+	</table>
+</body>
+</html>

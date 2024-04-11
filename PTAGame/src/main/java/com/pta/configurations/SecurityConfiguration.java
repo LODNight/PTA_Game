@@ -35,10 +35,10 @@ public class SecurityConfiguration {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		return http.cors(cor -> cor.disable()).csrf(cs -> cs.disable()).authorizeHttpRequests(auth -> {
-			auth.requestMatchers("/", "/**", "/accessDenied")
+			auth.requestMatchers("/", "/**", "/images/**", "/accessDenied")
 					.permitAll()
 					.requestMatchers("/superadmin/account/index").hasAnyRole("SUPER_ADMIN")
-					.requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN", "ADMIN")
+					.requestMatchers("/admin/").hasAnyRole("SUPER_ADMIN", "ADMIN")
 					.requestMatchers("/user/**", "/").hasAnyRole("SUPER_ADMIN", "ADMIN", "MEMBER")
 					.anyRequest()
 					.authenticated();

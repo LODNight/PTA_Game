@@ -24,7 +24,7 @@ public class Product implements java.io.Serializable {
 	private String description;
 	private String image;
 	private String price;
-	private boolean status;
+	private int status;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date createdTime;
@@ -37,7 +37,7 @@ public class Product implements java.io.Serializable {
 	public Product() {
 	}
 
-	public Product(String name, String description, String image, String price, boolean status, Date createdTime) {
+	public Product(String name, String description, String image, String price, int status, Date createdTime) {
 		this.name = name;
 		this.description = description;
 		this.image = image;
@@ -47,7 +47,7 @@ public class Product implements java.io.Serializable {
 	}
 
 	public Product(Developer developer, Publisher publisher, String name, String description, String image,
-			String price, boolean status, Date createdTime, Date updatedTime, Set<GameGenres> gameGenreses,
+			String price, int status, Date createdTime, Date updatedTime, Set<GameGenres> gameGenreses,
 			Set<OperatingSystem> operatingSystems) {
 		this.developer = developer;
 		this.publisher = publisher;
@@ -130,12 +130,12 @@ public class Product implements java.io.Serializable {
 		this.price = price;
 	}
 
-	@Column(name = "status", nullable = false)
-	public boolean isStatus() {
+	@Column(name = "status", nullable = false, length = 11)
+	public Integer getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

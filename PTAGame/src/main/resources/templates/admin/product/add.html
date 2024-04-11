@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+</head>
+
+<body>
+    <form th:action="@{/admin/product/add}" method="post" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" th:field="*{product.name}"></td>
+            </tr>
+            
+            <tr>
+                <td>Description</td>
+                <td><input type="text" th:field="*{product.description}"></td>
+            </tr>
+            
+            <tr>
+                <td>Price</td>
+                <td><input type="text" th:field="*{product.price}"></td>
+            </tr>
+            
+            <tr>
+                <td>Status</td>
+                <td><input type="text" th:field="*{product.status}"></td>
+            </tr>
+            
+            <tr>
+                <td>Developer</td>
+                <td>
+                    <select th:field="${product.developer.id}" class="form-control select2">
+                        <option th:each="developer : ${developers}" th:value="${developer.id}" th:text="${developer.name}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>Publisher</td>
+                <td>
+                    <select th:field="${product.publisher.id}" class="form-control select2">
+                        <option th:each="publisher : ${publishers}" th:value="${publisher.id}" th:text="${publisher.name}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            
+             <tr>
+                <td>Image</td>
+                <td><input type="file" class="form-control" name="file"></td>
+            </tr>
+            
+            <tr>
+                <td colspan="2" align="center">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</body>
+
+</html>
