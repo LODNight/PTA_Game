@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/admin :: content('List Test',~{this :: .main} )}">
+
+<head>
+<title th:text="${title}"></title>
+</head>
+
+<body>
+
+	<div class="main">
+
+	ABC
+	</div>
+
+
+	<div class="footer">
+
+		<div th:replace="layout/footer :: footer2"></div>
+		<div th:replace="layout/footer :: foot"></div>
+	</div>
+	
+	<p id="p">
+	<div th:replace="layout/footer :: foot"></div>
+	</p>
+
+</body>
+
+</html>

@@ -25,7 +25,7 @@ import com.pta.service.RoleService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping({ "", "/", "admin/account", "admin/account/" })
+@RequestMapping({ "", "/", "admin", "admin/", "admin/account", "admin/account/" })
 public class AccountAdminController {
 
 	@Autowired
@@ -58,14 +58,22 @@ public class AccountAdminController {
 	}
 
 	@PostMapping({ "add" })
-	public String add(@ModelAttribute("account") Account account, RedirectAttributes redirectAttributes) {
+	public String add(@ModelAttribute("account") Account account, RedirectAttributes redirectAttributes,
+			@RequestParam("newPassword") String newPassword, @RequestParam("repeat-password") String confirmPassword) {
 		try {
 
+			if (!confirmPassword.equals(newPassword)) {
+				redirectAttributes.addFlashAttribute("msg", "Confirm password does not match new password");
+				return "redirect:/admin/account/add";
+			}
+			
 			LocalDateTime now = LocalDateTime.now();
 			Date createdDate = Date.from(now.toInstant(ZoneOffset.UTC));
 			account.setCreatedTime(createdDate);
-			account.setPassword(encoder.encode(account.getPassword()));
-
+			
+			account.setPassword(encoder.encode(newPassword));
+			account.setStatus(0);
+			
 			if (accountService.save(account)) {
 				redirectAttributes.addFlashAttribute("msg", "Add Success");
 			} else {

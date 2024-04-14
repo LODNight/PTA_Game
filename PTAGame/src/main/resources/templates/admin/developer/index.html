@@ -1,34 +1,181 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/admin :: content('List Test',~{this :: .main})}">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Developer</title>
+<title th:text="${title}"></title>
 </head>
+
 <body>
-    <h1>Admin Developer</h1> 
-    
-    <a th:href="@{/admin/developer/add}">Add</a> | 
-    <table border="1">
-        <thead>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Status</th>
-            <th>Created Time</th>
-            <th>Updated Time</th>
-            <th>Action</th>
-        </thead>
-        <tbody th:each="developer : ${developers}">
-            <td th:text="${developer.id}"></td>
-            <td th:text="${developer.name}"></td>
-            <td th:text="${developer.status}"></td>
-            <td th:text="${#dates.format(developer.createdTime, 'dd/MM/yyyy - HH:mm')}"></td>
-            <td th:text="${#dates.format(developer.updatedTime, 'dd/MM/yyyy - HH:mm')}"></td>
-            <td>
-                <a th:href="@{'/admin/developer/edit/'+ ${developer.id}} ">Edit</a>
-                <a th:href="@{'/admin/developer/delete/' + ${developer.id}}">Delete</a>
-            </td>
-        </tbody>
-    </table>
+
+	<div class="main">
+
+		<div class="page-wrapper">
+
+			<div class="page-header">
+				<div class="row align-items-end">
+					<div class="col-lg-8">
+						<div class="page-header-title">
+							<div class="d-inline">
+								<h4>Basic Table Sizes</h4>
+								<span>lorem ipsum dolor sit amet, consectetur adipisicing
+									elit</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="page-header-breadcrumb">
+							<ul class="breadcrumb-title">
+								<li class="breadcrumb-item" style="float: left;"><a
+									href="../index.html"> <i class="feather icon-home"></i>
+								</a></li>
+								<li class="breadcrumb-item" style="float: left;"><a
+									href="#!">Bootstrap Table</a></li>
+								<li class="breadcrumb-item" style="float: left;"><a
+									href="#!">Basic Initialization</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Multi Table -->
+			<div class="page-body">
+				<div class="row">
+					<div class="col-sm-12">
+
+						<div class="card">
+							<div class="card-header">
+								<h5>Show all Account list</h5>
+								<span></span>
+							</div>
+							<div class="card-block">
+								<div class="dt-responsive table-responsive">
+									<div id="multi-colum-dt_wrapper"
+										class="dataTables_wrapper dt-bootstrap4">
+
+										<div class="row">
+											<div class="col-xs-12 col-sm-12">
+												<table id="multi-colum-dt"
+													class="table table-striped table-bordered nowrap dataTable"
+													role="grid" aria-describedby="multi-colum-dt_info">
+													<thead>
+														<tr role="row">
+															<th class="sorting_asc" tabindex="0"
+																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
+																aria-sort="ascending"
+																aria-label="Name: activate to sort column descending"
+																style="width: 20px;">Id</th>
+															<th class="sorting" tabindex="0"
+																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
+																aria-label="Position: activate to sort column ascending"
+																style="width: 120px;">Email</th>
+															<th class="sorting" tabindex="0"
+																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
+																aria-label="Office: activate to sort column ascending"
+																style="width: 120px;">Full Name</th>
+															<th class="sorting" tabindex="0"
+																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
+																aria-label="Salary: activate to sort column ascending"
+																style="width: 5px;">Status</th>
+															<th class="sorting" tabindex="0"
+																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
+																aria-label="Salary: activate to sort column ascending"
+																style="width: 30px;">Role Name</th>
+															<th class="sorting" tabindex="0"
+																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
+																aria-label="Salary: activate to sort column ascending"
+																style="width: 50px;">Last Updated</th>
+															<th class="sorting" tabindex="0"
+																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
+																aria-label="Salary: activate to sort column ascending"
+																style="width: 95.4375px;">Action</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr role="row" class="even"
+															th:each="account : ${accounts}">
+															<td th:text="${account.id}"></td>
+															<td th:text="${account.email}"></td>
+															<td
+																th:text="${account.firstName} + ' ' + ${account.lastName}"></td>
+
+															<td th:if="${account.status == 1}"><label class="label label-success">Active</label></td>
+															<td th:if="${account.status == 0}"><label class="label label-danger">Inactive</label></td>
+
+															<td th:text="${account.role.name}"></td>
+
+															<td
+																th:text="${account.updatedTime} ? ${#dates.format(account.updatedTime, 'dd/MM/yyyy - HH:mm')} : ${#dates.format(account.createdTime, 'dd/MM/yyyy - HH:mm')}"></td>
+
+
+															<td>
+																<div class="dropdown-warning dropdown open">
+																	<button
+																		class="btn btn-warning dropdown-toggle waves-effect waves-light "
+																		type="button" id="dropdown-5" data-toggle="dropdown"
+																		aria-haspopup="true" aria-expanded="false">Action</button>
+
+																	<div class="dropdown-menu" aria-labelledby="dropdown-5"
+																		data-dropdown-in="fadeIn" data-dropdown-out="fadeOut"
+																		style="will-change: transform;">
+																		<a class="dropdown-item waves-light waves-effect"
+																			th:href="@{'/admin/account/edit/'+ ${account.id}}">Edit</a>
+																		<div class="dropdown-divider"></div>
+																		<a class="dropdown-item waves-light waves-effect"
+																			th:href="@{'/admin/account/updatePassword/'+ ${account.id}} ">Change
+																			Password</a>
+																		<div class="dropdown-divider"></div>
+																		<a class="dropdown-item waves-light waves-effect"
+																			th:href="@{'/admin/account/delete/' + ${account.id}}">Delete</a>
+
+																	</div>
+																</div>
+
+															</td>
+														</tr>
+													</tbody>
+													<tfoot>
+														<tr>
+															<th class="sorting_asc" tabindex="0"
+																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
+																aria-sort="ascending"
+																aria-label="Name: activate to sort column descending"
+																style="width: 10px;">Id</th>
+															<th class="sorting" tabindex="0"
+																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
+																aria-label="Position: activate to sort column ascending"
+																style="width: 100px;">Name</th>
+															<th class="sorting" tabindex="0"
+																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
+																aria-label="Salary: activate to sort column ascending"
+																style="width: 5px;">Status</th>
+															<th class="sorting" tabindex="0"
+																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
+																aria-label="Salary: activate to sort column ascending"
+																style="width: 10px;">Last Updated</th>
+															<th class="sorting" tabindex="0"
+																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
+																aria-label="Salary: activate to sort column ascending"
+																style="width: 95.4375px;">Action</th>
+														</tr>
+													</tfoot>
+												</table>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
 </body>
 </html>

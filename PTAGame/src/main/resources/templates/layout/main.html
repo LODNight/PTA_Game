@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:fragment="content(title, mainContent, script)">
+
+<head>
+	<title th:text=${title}></title>
+</head>
+
+<body>
+	<div>Main Page</div>
+	<div th:replace="layout/header :: header"></div>
+
+
+	<main role="main" class="main-content">
+		<div th:replace="${mainContent}"></div>
+
+	</main>
+
+<th:block th:replace="${script}">
+
+</body>
+
+</html>

@@ -1,60 +1,152 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/admin :: content('Edit Account',~{this :: .main})}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Account </title>
-</head>
-
+<title th:text="${title}"></title>
 <body>
-    <h3> Edit [<i th:text="${account.email}"></i>]</h3>
-    <form th:action="@{/admin/account/edit}" method="post">
-        <table>
-            
-            <tr>
-                <td>First Name</td>
-                <td><input type="text" th:field="*{account.firstName}"></td>
-            </tr>
-            <tr>
-                <td>Last Name</td>
-                <td><input type="text" th:field="*{account.lastName}"></td>
-            </tr>
-            <tr>
-                <td>Phone</td>
-                <td><input type="text" th:field="*{account.phone}"></td>
-            </tr>
-            <tr>
-                <td>Address</td>
-                <td><input type="text" th:field="*{account.address}"></td>
-            </tr>
-            <tr>
-                <td>Status</td>
-                <td><input type="text" th:field="*{account.status}"></td>
-            </tr>
-            <tr>
-                <td>Role</td>
-                <td>
-                    <select th:field="${account.role.id}" class="form-control select2">
-                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}">
-                        </option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <button type="submit" class="btn btn-primary">Edit</button>
-                    <input type="hidden" th:field="*{account.id}">
-                    <input type="hidden" th:field="*{account.email}">
-                    <input type="hidden" th:field="*{account.password}">
-                    <input type="hidden" th:field="*{account.securityCode}">
-                    <input type="hidden" th:field="*{account.createdTime}">
-                    <input type="hidden" th:field="*{account.updatedTime}">
-                </td>
-            </tr>
+	<div class="main">
+		<div class="page-wrapper">
 
-        </table>
-    </form>
+
+			<div class="page-header">
+				<div class="row align-items-end">
+					<div class="col-lg-8">
+						<div class="page-header-title">
+							<div class="d-inline">
+								<h4>Account</h4>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="page-header-breadcrumb">
+							<ul class="breadcrumb-title">
+								<li class="breadcrumb-item" style="float: left;"><a
+									th:href="@{/admin/}"> <i class="feather icon-home"></i>
+								</a></li>
+								<li class="breadcrumb-item" style="float: left;"><a
+									th:href="@{/admin/account/index}">Account</a></li>
+								<li class="breadcrumb-item" style="float: left;"><a
+									th:href="@{/admin/account/add}">Edit Account</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="page-body">
+				<div class="row">
+					<div class="col-sm-12">
+
+						<div class="card">
+							<div class="card-header">
+								<h5>Edit New Account</h5>
+							</div>
+							<div class="card-block">
+								<form id="main" method="post" th:action="@{/admin/account/add}"
+									novalidate>
+
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Email</label>
+										<div class="col-sm-10">
+											<input type="email" th:field="*{account.email}"
+												class="form-control" id="email" name="email"
+												placeholder="Enter e-mail address"> <span
+												class="messages"></span>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Password</label>
+										<div class="col-sm-10">
+											<input type="password" class="form-control" id="newPassword"
+												name="newPassword" placeholder="Enter Password"> <span
+												class="messages"></span>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Repeat Password</label>
+										<div class="col-sm-10">
+											<input type="password" class="form-control"
+												id="repeat-password" name="repeat-password"
+												placeholder="Repeat Password"> <span
+												class="messages"></span>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">First Name</label>
+										<div class="col-sm-10">
+											<input type="text" th:field="*{account.firstName}"
+												class="form-control" placeholder="Enter First Name">
+											<span class="messages"></span>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Last Name</label>
+										<div class="col-sm-10">
+											<input type="text" th:field="*{account.lastName}"
+												class="form-control" placeholder="Enter Last Name">
+											<span class="messages"></span>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Phone</label>
+										<div class="col-sm-10">
+											<input type="text" th:field="*{account.phone}"
+												class="form-control" placeholder="Enter Phone Number">
+											<span class="messages"></span>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Address</label>
+										<div class="col-sm-10">
+											<input type="text" th:field="*{account.address}"
+												class="form-control" placeholder="Enter Address"> <span
+												class="messages"></span>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Role</label>
+										<div class="col-sm-10">
+											<select name="select" th:field="${account.role.id}"
+												class="form-control form-control-info">
+												<option th:each="role : ${roles}" th:value="${role.id}"
+													th:text="${role.name}"></option>
+
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label class="col-sm-2"></label>
+										<div class="col-sm-10">
+											<button type="submit" class="btn btn-primary m-b-0">Submit</button>
+											<div>
+												<input type="hidden" th:field="*{account.id}"> <input
+													type="hidden" th:field="*{account.email}"> <input
+													type="hidden" th:field="*{account.password}"> <input
+													type="hidden" th:field="*{account.securityCode}"> <input
+													type="hidden" th:field="*{account.createdTime}"> <input
+													type="hidden" th:field="*{account.updatedTime}">
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
 </body>
 
 </html>
