@@ -26,7 +26,7 @@ public class GenresAdminController {
 	@GetMapping({ "index", "", "/" })
 	public String index(ModelMap modelMap) {
 
-		modelMap.put("genres", genresService.findAll());
+		modelMap.put("genries", genresService.findAll());
 		return "admin/genres/index";
 	}
 

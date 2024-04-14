@@ -1,5 +1,5 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{layout/admin :: content('List Test',~{this :: .main})}">
+	th:replace="~{layout/admin :: content('Developer List',~{this :: .main})}">
 
 <head>
 <title th:text="${title}"></title>
@@ -16,9 +16,8 @@
 					<div class="col-lg-8">
 						<div class="page-header-title">
 							<div class="d-inline">
-								<h4>Basic Table Sizes</h4>
-								<span>lorem ipsum dolor sit amet, consectetur adipisicing
-									elit</span>
+								<h4>Developer List</h4>
+								<span></span>
 							</div>
 						</div>
 					</div>
@@ -29,9 +28,7 @@
 									href="../index.html"> <i class="feather icon-home"></i>
 								</a></li>
 								<li class="breadcrumb-item" style="float: left;"><a
-									href="#!">Bootstrap Table</a></li>
-								<li class="breadcrumb-item" style="float: left;"><a
-									href="#!">Basic Initialization</a></li>
+									href="#!">Developer</a></li>
 							</ul>
 						</div>
 					</div>
@@ -45,7 +42,7 @@
 
 						<div class="card">
 							<div class="card-header">
-								<h5>Show all Account list</h5>
+								<h5>Show all developer list</h5>
 								<span></span>
 							</div>
 							<div class="card-block">
@@ -68,19 +65,13 @@
 															<th class="sorting" tabindex="0"
 																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
 																aria-label="Position: activate to sort column ascending"
-																style="width: 120px;">Email</th>
-															<th class="sorting" tabindex="0"
-																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
-																aria-label="Office: activate to sort column ascending"
-																style="width: 120px;">Full Name</th>
+																style="width: 120px;">Name</th>
+
 															<th class="sorting" tabindex="0"
 																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
 																aria-label="Salary: activate to sort column ascending"
 																style="width: 5px;">Status</th>
-															<th class="sorting" tabindex="0"
-																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
-																aria-label="Salary: activate to sort column ascending"
-																style="width: 30px;">Role Name</th>
+
 															<th class="sorting" tabindex="0"
 																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
 																aria-label="Salary: activate to sort column ascending"
@@ -93,19 +84,17 @@
 													</thead>
 													<tbody>
 														<tr role="row" class="even"
-															th:each="account : ${accounts}">
-															<td th:text="${account.id}"></td>
-															<td th:text="${account.email}"></td>
-															<td
-																th:text="${account.firstName} + ' ' + ${account.lastName}"></td>
+															th:each="developer : ${developers}">
+															<td th:text="${developer.id}"></td>
+															<td th:text="${developer.name}"></td>
+															<td th:if="${developer.status == 1}"><label
+																class="label label-success">Active</label></td>
+															<td th:if="${developer.status == 0}"><label
+																class="label label-danger">Inactive</label></td>
 
-															<td th:if="${account.status == 1}"><label class="label label-success">Active</label></td>
-															<td th:if="${account.status == 0}"><label class="label label-danger">Inactive</label></td>
-
-															<td th:text="${account.role.name}"></td>
 
 															<td
-																th:text="${account.updatedTime} ? ${#dates.format(account.updatedTime, 'dd/MM/yyyy - HH:mm')} : ${#dates.format(account.createdTime, 'dd/MM/yyyy - HH:mm')}"></td>
+																th:text="${developer.updatedTime} ? ${#dates.format(developer.updatedTime, 'dd/MM/yyyy - HH:mm')} : ${#dates.format(developer.createdTime, 'dd/MM/yyyy - HH:mm')}"></td>
 
 
 															<td>
@@ -119,14 +108,11 @@
 																		data-dropdown-in="fadeIn" data-dropdown-out="fadeOut"
 																		style="will-change: transform;">
 																		<a class="dropdown-item waves-light waves-effect"
-																			th:href="@{'/admin/account/edit/'+ ${account.id}}">Edit</a>
+																			th:href="@{'/admin/developer/edit/'+ ${developer.id}}">Edit</a>
+																
 																		<div class="dropdown-divider"></div>
 																		<a class="dropdown-item waves-light waves-effect"
-																			th:href="@{'/admin/account/updatePassword/'+ ${account.id}} ">Change
-																			Password</a>
-																		<div class="dropdown-divider"></div>
-																		<a class="dropdown-item waves-light waves-effect"
-																			th:href="@{'/admin/account/delete/' + ${account.id}}">Delete</a>
+																			th:href="@{'/admin/developer/delete/' + ${developer.id}}">Delete</a>
 
 																	</div>
 																</div>
@@ -134,31 +120,8 @@
 															</td>
 														</tr>
 													</tbody>
-													<tfoot>
-														<tr>
-															<th class="sorting_asc" tabindex="0"
-																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
-																aria-sort="ascending"
-																aria-label="Name: activate to sort column descending"
-																style="width: 10px;">Id</th>
-															<th class="sorting" tabindex="0"
-																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
-																aria-label="Position: activate to sort column ascending"
-																style="width: 100px;">Name</th>
-															<th class="sorting" tabindex="0"
-																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
-																aria-label="Salary: activate to sort column ascending"
-																style="width: 5px;">Status</th>
-															<th class="sorting" tabindex="0"
-																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
-																aria-label="Salary: activate to sort column ascending"
-																style="width: 10px;">Last Updated</th>
-															<th class="sorting" tabindex="0"
-																aria-controls="multi-colum-dt" rowspan="1" colspan="1"
-																aria-label="Salary: activate to sort column ascending"
-																style="width: 95.4375px;">Action</th>
-														</tr>
-													</tfoot>
+
+
 												</table>
 											</div>
 										</div>
